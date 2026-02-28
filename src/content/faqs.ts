@@ -1,0 +1,47 @@
+export interface FAQ {
+    question: string;
+    answer: string;
+}
+
+export const faqs: FAQ[] = [
+    {
+        question: "What's your typical turnaround time?",
+        answer:
+            "For bug fixes and debugging, I usually deliver within 24–48 hours. Feature development takes 3–7 days depending on complexity. I always provide a time estimate before starting.",
+    },
+    {
+        question: "How do you handle communication?",
+        answer:
+            "I communicate primarily through Fiverr messaging. For larger projects, I'm happy to use Slack, Discord, or email. I provide daily updates on progress and am available during business hours for quick questions.",
+    },
+    {
+        question: "Do you offer revisions?",
+        answer:
+            "Yes! All my Fiverr packages include revisions. I work with you until you're satisfied with the result. Clear requirements upfront help minimize the need for major revisions.",
+    },
+    {
+        question: "What technologies do you work with?",
+        answer:
+            "My core stack is React/Next.js, Node.js, TypeScript, and PostgreSQL/MongoDB. I also work with PHP, Python, Docker, and various cloud platforms (AWS, Vercel, Render). Check my Services page for a full breakdown.",
+    },
+    {
+        question: "Can you work with my existing codebase?",
+        answer:
+            "Absolutely. Most of my work involves jumping into existing projects to fix bugs, add features, or optimize performance. I'm experienced with legacy codebases and can quickly understand your architecture.",
+    },
+    {
+        question: "Do you provide ongoing maintenance?",
+        answer:
+            "Yes, I offer monthly maintenance packages that include dependency updates, security patches, monitoring, and priority bug fixes. This is ideal for businesses that need reliable ongoing support.",
+    },
+    {
+        question: "How do I get started?",
+        answer:
+            "The easiest way is to message me on Fiverr with a description of your project or issue. I'll review it, ask any clarifying questions, and provide a quote within a few hours.",
+    },
+    {
+        question: "Do you sign NDAs?",
+        answer:
+            "Yes, I'm happy to sign NDAs before discussing sensitive project details. Confidentiality is important to me, and I treat all client code and data as proprietary.",
+    },
+];

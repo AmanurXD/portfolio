@@ -1,0 +1,49 @@
+---
+title: "5 Debugging Techniques Every Developer Should Know"
+date: "2026-02-15"
+summary: "Stop console.log-driven debugging. Here are 5 systematic techniques I use to find and fix bugs faster in production applications."
+tags: ["debugging", "javascript", "react", "tips"]
+---
+
+# 5 Debugging Techniques Every Developer Should Know
+
+Debugging is an art. After fixing thousands of bugs across dozens of codebases, I've developed a systematic approach that saves hours of head-scratching. Here are my top 5 techniques.
+
+## 1. Binary Search Debugging
+
+When you have a bug but don't know where it is, don't read every line. Instead, comment out half your code. Does the bug persist? If yes, it's in the remaining half. If no, it's in what you commented out. Repeat.
+
+This sounds simple, but it's incredibly efficient for narrowing down issues in large codebases.
+
+## 2. Rubber Duck Debugging
+
+Explain the problem out loud — to a rubber duck, a colleague, or even a Slack message to yourself. The act of articulating the problem forces you to think through your assumptions, and often the answer reveals itself.
+
+## 3. Read the Error Message (Seriously)
+
+I know this sounds obvious, but you'd be surprised how many developers skip the actual error message and jump to Google. Read the full stack trace. The line number, the function name, the error type — they're all clues.
+
+## 4. Use the Network Tab
+
+For API-related bugs, the Network tab in Chrome DevTools is your best friend. Check:
+- Is the request being sent?
+- What's the response status code?
+- What does the response body look like?
+- Are the request headers correct?
+
+## 5. Git Bisect for Regression Bugs
+
+If something worked yesterday but is broken today, use `git bisect` to find the exact commit that introduced the bug. It's a binary search through your commit history.
+
+```bash
+git bisect start
+git bisect bad          # Current commit is broken
+git bisect good abc123  # This older commit was working
+# Git will checkout commits for you to test
+```
+
+## Conclusion
+
+Debugging isn't about being smart — it's about being systematic. These techniques have saved me hundreds of hours, and they'll do the same for you.
+
+Need help debugging your app? [Message me on Fiverr](https://www.fiverr.com/debugwithjames).

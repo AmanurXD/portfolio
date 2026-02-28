@@ -1,26 +1,225 @@
 @import "tailwindcss";
 
+/* ===== CSS Custom Properties (Design Tokens) ===== */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Background & Surface */
+  --background: 0 0% 100%;
+  --surface: 220 14% 96%;
+  --surface-elevated: 0 0% 100%;
+
+  /* Foreground / Text */
+  --foreground: 222 47% 11%;
+  --foreground-muted: 215 16% 47%;
+
+  /* Accent (Electric Blue) */
+  --accent: 217 91% 60%;
+  --accent-foreground: 0 0% 100%;
+  --accent-hover: 217 91% 50%;
+
+  /* Borders */
+  --border: 220 13% 91%;
+  --border-hover: 215 16% 70%;
+
+  /* Card */
+  --card: 0 0% 100%;
+  --card-hover: 220 14% 98%;
+
+  /* Destructive */
+  --destructive: 0 84% 60%;
+
+  /* Ring */
+  --ring: 217 91% 60%;
+
+  /* Navbar */
+  --navbar: 0 0% 100% / 0.8;
+
+  /* Radius */
+  --radius: 0.75rem;
 }
 
+.dark {
+  --background: 222 47% 5%;
+  --surface: 222 47% 8%;
+  --surface-elevated: 222 47% 10%;
+
+  --foreground: 210 40% 98%;
+  --foreground-muted: 215 20% 55%;
+
+  --accent: 217 91% 60%;
+  --accent-foreground: 0 0% 100%;
+  --accent-hover: 217 91% 70%;
+
+  --border: 222 47% 14%;
+  --border-hover: 222 47% 25%;
+
+  --card: 222 47% 8%;
+  --card-hover: 222 47% 11%;
+
+  --destructive: 0 62% 50%;
+
+  --ring: 217 91% 60%;
+
+  --navbar: 222 47% 5% / 0.85;
+}
+
+/* ===== Tailwind v4 Theme ===== */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-background: hsl(var(--background));
+  --color-surface: hsl(var(--surface));
+  --color-surface-elevated: hsl(var(--surface-elevated));
+  --color-foreground: hsl(var(--foreground));
+  --color-foreground-muted: hsl(var(--foreground-muted));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-accent-hover: hsl(var(--accent-hover));
+  --color-border: hsl(var(--border));
+  --color-border-hover: hsl(var(--border-hover));
+  --color-card: hsl(var(--card));
+  --color-card-hover: hsl(var(--card-hover));
+  --color-destructive: hsl(var(--destructive));
+  --color-ring: hsl(var(--ring));
+  --color-navbar: hsl(var(--navbar));
+  --radius-base: var(--radius);
+  --font-sans: var(--font-inter);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* ===== Base Styles ===== */
+* {
+  border-color: hsl(var(--border));
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: hsl(var(--background));
+  color: hsl(var(--foreground));
+  font-family: var(--font-inter), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
+
+/* ===== Focus Styles (Accessibility) ===== */
+*:focus-visible {
+  outline: 2px solid hsl(var(--ring));
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ===== Selection ===== */
+::selection {
+  background: hsl(var(--accent) / 0.3);
+  color: hsl(var(--foreground));
+}
+
+/* ===== Scrollbar ===== */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: hsl(var(--surface));
+}
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--border-hover));
+  border-radius: 99px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--foreground-muted));
+}
+
+/* ===== Skip to Main Content (A11y) ===== */
+.skip-to-main {
+  position: absolute;
+  top: -100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: hsl(var(--accent));
+  color: hsl(var(--accent-foreground));
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius);
+  z-index: 9999;
+  font-weight: 600;
+  transition: top 0.2s;
+}
+.skip-to-main:focus {
+  top: 1rem;
+}
+
+/* ===== Glassmorphism Utility ===== */
+.glass {
+  background: hsl(var(--navbar));
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+}
+
+/* ===== Gradient Text ===== */
+.gradient-text {
+  background: linear-gradient(135deg, hsl(var(--accent)), hsl(280 91% 60%));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ===== Noise Texture Overlay ===== */
+.noise-overlay::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  opacity: 0.015;
+  pointer-events: none;
+  z-index: 9998;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* ===== Prose (for MDX blog content) ===== */
+.prose {
+  max-width: 65ch;
+  line-height: 1.75;
+}
+.prose h1 { font-size: 2.25rem; font-weight: 800; margin-top: 2rem; margin-bottom: 1rem; }
+.prose h2 { font-size: 1.5rem; font-weight: 700; margin-top: 1.75rem; margin-bottom: 0.75rem; }
+.prose h3 { font-size: 1.25rem; font-weight: 600; margin-top: 1.5rem; margin-bottom: 0.5rem; }
+.prose p { margin-bottom: 1.25rem; }
+.prose a { color: hsl(var(--accent)); text-decoration: underline; }
+.prose a:hover { color: hsl(var(--accent-hover)); }
+.prose code {
+  background: hsl(var(--surface));
+  padding: 0.2rem 0.4rem;
+  border-radius: 0.25rem;
+  font-size: 0.875em;
+}
+.prose pre {
+  background: hsl(var(--surface));
+  padding: 1rem;
+  border-radius: var(--radius);
+  overflow-x: auto;
+  margin-bottom: 1.5rem;
+}
+.prose pre code { background: none; padding: 0; }
+.prose ul, .prose ol { padding-left: 1.5rem; margin-bottom: 1.25rem; }
+.prose li { margin-bottom: 0.5rem; }
+.prose blockquote {
+  border-left: 4px solid hsl(var(--accent));
+  padding-left: 1rem;
+  font-style: italic;
+  color: hsl(var(--foreground-muted));
+  margin-bottom: 1.25rem;
+}
+.prose img { border-radius: var(--radius); margin: 1.5rem 0; }
+.prose hr { border-color: hsl(var(--border)); margin: 2rem 0; }

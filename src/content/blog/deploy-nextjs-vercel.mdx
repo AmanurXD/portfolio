@@ -1,0 +1,63 @@
+---
+title: "Deploying Next.js to Vercel: A Complete Guide"
+date: "2026-02-01"
+summary: "Everything you need to know about deploying a Next.js application to Vercel — from setup to custom domains and environment variables."
+tags: ["nextjs", "vercel", "deployment", "guide"]
+---
+
+# Deploying Next.js to Vercel: A Complete Guide
+
+Vercel is the company behind Next.js, so it's no surprise that deploying to Vercel is seamless. But there are still some gotchas. Here's my complete guide.
+
+## Step 1: Push to Git
+
+Vercel deploys from your Git repository. Push your code to GitHub, GitLab, or Bitbucket.
+
+```bash
+git add .
+git commit -m "Ready for deployment"
+git push origin main
+```
+
+## Step 2: Connect to Vercel
+
+1. Go to [vercel.com](https://vercel.com) and sign in with your Git provider
+2. Click "New Project"
+3. Import your repository
+4. Vercel auto-detects Next.js — just click "Deploy"
+
+## Step 3: Environment Variables
+
+If your app uses environment variables, add them in the Vercel dashboard:
+
+- Go to **Settings → Environment Variables**
+- Add each variable with the appropriate scope (Production, Preview, Development)
+
+> **Pro tip:** Never commit `.env` files to git. Use `.env.local` for development and Vercel's dashboard for production.
+
+## Step 4: Custom Domain
+
+1. Go to **Settings → Domains**
+2. Add your domain
+3. Update your DNS records as Vercel instructs
+4. SSL is automatic — no extra configuration needed
+
+## Common Issues
+
+### Build Failures
+- Check your `package.json` scripts — Vercel runs `next build` by default
+- Ensure all dependencies are in `dependencies`, not just `devDependencies`
+- Check for TypeScript errors — Vercel runs type checking during build
+
+### API Routes Not Working
+- Make sure your API routes are in `src/app/api/` (App Router) or `pages/api/` (Pages Router)
+- Check environment variables are set in Vercel
+
+### Images Not Loading
+- Use `next/image` with proper `remotePatterns` in `next.config.js` for external images
+
+## Conclusion
+
+Vercel makes deployment almost trivial, but knowing these details will save you time when things don't work as expected.
+
+Need help with deployment? [Message me on Fiverr](https://www.fiverr.com/debugwithjames).

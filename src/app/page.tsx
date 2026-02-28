@@ -1,65 +1,275 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import { useRef } from "react";
+import Link from "next/link";
+import { motion, useInView } from "framer-motion";
+import {
+  ArrowRight,
+  ExternalLink,
+  Zap,
+  Bug,
+  Rocket,
+  Star,
+  Clock,
+  Server,
+} from "lucide-react";
+import { siteConfig } from "@/content/site";
+import { services } from "@/content/services";
+import { testimonials } from "@/content/testimonials";
+import { FIVERR_URL } from "@/lib/constants";
+import { ParticlesBackground } from "@/components/home/ParticlesBackground";
+import { SectionReveal } from "@/components/shared/SectionReveal";
+import { SectionHeading } from "@/components/shared/SectionHeading";
+import { FiverrCTA } from "@/components/shared/FiverrCTA";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
+
+const iconMap: Record<string, React.ReactNode> = {
+  Bug: <Bug size={24} />,
+  Rocket: <Rocket size={24} />,
+  Layers: <Server size={24} />,
+  Plug: <Zap size={24} />,
+  Zap: <Zap size={24} />,
+  Shield: <Star size={24} />,
+};
+
+function AnimatedCounter({
+  value,
+  suffix,
+}: {
+  value: number;
+  suffix: string;
+}) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const isInView = useInView(ref, { once: true });
+  const reducedMotion = useReducedMotion();
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <span ref={ref} className="text-3xl sm:text-4xl font-bold text-foreground">
+      {isInView || reducedMotion ? (
+        <motion.span
+          initial={reducedMotion ? {} : { opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.3 }}
+        >
+          {value}{suffix}
+        </motion.span>
+      ) : (
+        <span className="opacity-0">0</span>
+      )}
+    </span>
+  );
+}
+
+export default function HomePage() {
+  const reducedMotion = useReducedMotion();
+
+  const fadeUp = reducedMotion
+    ? {}
+    : {
+      initial: { opacity: 0, y: 25 },
+      animate: { opacity: 1, y: 0 },
+    };
+
+  return (
+    <>
+      {/* ===== Hero ===== */}
+      <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
+        <ParticlesBackground />
+
+        {/* Gradient orbs */}
+        <div className="absolute inset-0 -z-10">
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-accent/10 rounded-full blur-3xl" />
+          <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-purple-500/8 rounded-full blur-3xl" />
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+
+        <div className="mx-auto max-w-4xl px-4 py-20 text-center sm:px-6">
+          <motion.div
+            {...fadeUp}
+            transition={{ duration: 0.6 }}
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
+            <span className="inline-block rounded-full border border-accent/30 bg-accent/5 px-4 py-1.5 text-xs font-medium text-accent mb-6">
+              Available for freelance projects
+            </span>
+          </motion.div>
+
+          <motion.h1
+            {...fadeUp}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight tracking-tight text-foreground"
+          >
+            Full Stack Web Developer
+            <br />
+            <span className="gradient-text">& Debugger</span>
+          </motion.h1>
+
+          <motion.p
+            {...fadeUp}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="mt-6 text-lg sm:text-xl text-foreground-muted max-w-2xl mx-auto leading-relaxed"
+          >
+            I build, fix, and deploy modern web apps.
+            React, Node.js, PHP, APIs — from quick bug fixes to full features.
+            Fast turnaround, clean code, production-ready.
+          </motion.p>
+
+          <motion.div
+            {...fadeUp}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4"
+          >
+            <a
+              href={FIVERR_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex items-center gap-2 rounded-xl bg-accent px-7 py-3.5 text-sm font-semibold text-accent-foreground shadow-lg shadow-accent/25 hover:bg-accent-hover hover:shadow-accent/40 transition-all"
+            >
+              Hire me on Fiverr
+              <ExternalLink
+                size={16}
+                className="group-hover:translate-x-0.5 transition-transform"
+              />
+            </a>
+            <Link
+              href="/projects"
+              className="group inline-flex items-center gap-2 rounded-xl border border-border px-7 py-3.5 text-sm font-semibold text-foreground hover:bg-surface hover:border-border-hover transition-all"
+            >
+              View Projects
+              <ArrowRight
+                size={16}
+                className="group-hover:translate-x-0.5 transition-transform"
+              />
+            </Link>
+          </motion.div>
+
+          {/* Quick trust signals */}
+          <motion.div
+            {...fadeUp}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="mt-14 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-sm text-foreground-muted"
+          >
+            <span className="flex items-center gap-2">
+              <Clock size={14} className="text-accent" /> Fast response
+            </span>
+            <span className="flex items-center gap-2">
+              <Bug size={14} className="text-accent" /> Production debugging
+            </span>
+            <span className="flex items-center gap-2">
+              <Server size={14} className="text-accent" /> Vercel / Render /
+              cPanel
+            </span>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ===== Stats ===== */}
+      <SectionReveal>
+        <section className="py-16 border-y border-border bg-surface/50">
+          <div className="mx-auto max-w-4xl px-4 sm:px-6">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+              {siteConfig.stats.map((stat) => (
+                <div key={stat.label}>
+                  <AnimatedCounter value={stat.value} suffix={stat.suffix} />
+                  <p className="mt-1.5 text-sm text-foreground-muted">
+                    {stat.label}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      </SectionReveal>
+
+      {/* ===== Services Preview ===== */}
+      <section className="py-20 sm:py-24">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <SectionReveal>
+            <SectionHeading
+              label="What I Do"
+              title="Services"
+              description="From quick bug fixes to full features — I help teams ship faster."
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+          </SectionReveal>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {services.slice(0, 3).map((service, i) => (
+              <SectionReveal key={service.id} delay={i * 0.1}>
+                <Link href="/services" className="block group">
+                  <div className="h-full rounded-2xl border border-border bg-card p-6 hover:bg-card-hover hover:border-border-hover hover:shadow-lg transition-all">
+                    <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-accent/10 text-accent mb-4">
+                      {iconMap[service.icon] || <Zap size={24} />}
+                    </div>
+                    <h3 className="text-lg font-semibold text-foreground group-hover:text-accent transition-colors">
+                      {service.title}
+                    </h3>
+                    <p className="mt-2 text-sm text-foreground-muted leading-relaxed line-clamp-3">
+                      {service.description}
+                    </p>
+                  </div>
+                </Link>
+              </SectionReveal>
+            ))}
+          </div>
+
+          <SectionReveal>
+            <div className="mt-10 text-center">
+              <Link
+                href="/services"
+                className="inline-flex items-center gap-2 text-sm font-semibold text-accent hover:text-accent-hover transition-colors"
+              >
+                View all services
+                <ArrowRight size={16} />
+              </Link>
+            </div>
+          </SectionReveal>
         </div>
-      </main>
-    </div>
+      </section>
+
+      {/* ===== Testimonials ===== */}
+      <section className="py-20 sm:py-24 bg-surface/50">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <SectionReveal>
+            <SectionHeading
+              label="Testimonials"
+              title="What Clients Say"
+              description="Real feedback from real projects."
+            />
+          </SectionReveal>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {testimonials.map((t, i) => (
+              <SectionReveal key={i} delay={i * 0.1}>
+                <div className="rounded-2xl border border-border bg-card p-6">
+                  <div className="flex gap-1 mb-3">
+                    {Array.from({ length: t.rating }).map((_, j) => (
+                      <Star
+                        key={j}
+                        size={14}
+                        className="fill-yellow-400 text-yellow-400"
+                      />
+                    ))}
+                  </div>
+                  <p className="text-sm text-foreground leading-relaxed italic">
+                    &ldquo;{t.text}&rdquo;
+                  </p>
+                  <div className="mt-4 pt-4 border-t border-border">
+                    <p className="text-sm font-semibold text-foreground">
+                      {t.name}
+                    </p>
+                    <p className="text-xs text-foreground-muted">{t.role}</p>
+                  </div>
+                </div>
+              </SectionReveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ===== CTA ===== */}
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+        <SectionReveal>
+          <FiverrCTA />
+        </SectionReveal>
+      </div>
+    </>
   );
 }

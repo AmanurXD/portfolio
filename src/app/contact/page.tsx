@@ -65,7 +65,7 @@ export default function ContactPage() {
                     <SectionHeading
                         label="Contact"
                         title="Let's Work Together"
-                        description="Have a project in mind, or need help fixing something? Reach out and I'll respond within a few hours."
+                        description="Have a project in mind, or need help fixing something? Reach out and I'll respond within minutes."
                     />
                 </SectionReveal>
 
@@ -179,7 +179,7 @@ export default function ContactPage() {
                                     Fastest response
                                 </h3>
                                 <p className="text-sm text-foreground-muted mb-4">
-                                    For project inquiries, message me on Fiverr — I typically respond within 1 hour.
+                                    For project inquiries, message me on Fiverr — I typically respond within minutes.
                                 </p>
                                 <a
                                     href={FIVERR_URL}

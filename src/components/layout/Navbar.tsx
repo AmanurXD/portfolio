@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTheme } from "next-themes";
@@ -11,8 +11,11 @@ import { cn } from "@/lib/utils";
 
 export function Navbar() {
     const [mobileOpen, setMobileOpen] = useState(false);
+    const [mounted, setMounted] = useState(false);
     const pathname = usePathname();
     const { theme, setTheme } = useTheme();
+
+    useEffect(() => setMounted(true), []);
 
     const cycleTheme = () => {
         if (theme === "dark") setTheme("light");
@@ -20,7 +23,7 @@ export function Navbar() {
         else setTheme("dark");
     };
 
-    const ThemeIcon = theme === "dark" ? Moon : theme === "light" ? Sun : Monitor;
+    const ThemeIcon = !mounted ? Monitor : theme === "dark" ? Moon : theme === "light" ? Sun : Monitor;
 
     return (
         <header className="fixed top-0 inset-x-0 z-50 glass border-b border-border">
@@ -74,7 +77,7 @@ export function Navbar() {
                     <button
                         onClick={cycleTheme}
                         className="p-2 rounded-lg text-foreground-muted hover:text-foreground hover:bg-surface transition-colors"
-                        aria-label={`Switch theme, current: ${theme}`}
+                        aria-label={mounted ? `Switch theme, current: ${theme}` : "Switch theme"}
                     >
                         <ThemeIcon size={18} />
                     </button>

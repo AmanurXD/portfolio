@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { motion, useInView } from "framer-motion";
 import {
@@ -60,6 +60,53 @@ function AnimatedCounter({
   );
 }
 
+function HealthGuard() {
+  const [error, setError] = useState<Error | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    (async () => {
+      try {
+        const response = await fetch("/api/health", { cache: "no-store" });
+
+        if (!response.ok) {
+          let message = `Health check failed (${response.status})`;
+          try {
+            const body = await response.json();
+            if (body?.error) {
+              message = body.error;
+            }
+          } catch {
+            // ignore body parse issues
+          }
+
+          if (!cancelled) {
+            setError(new Error(message));
+          }
+          return;
+        }
+      } catch (err) {
+        if (!cancelled) {
+          const fallbackMessage =
+            err instanceof Error ? err.message : "Health check crashed";
+          setError(new Error(fallbackMessage));
+        }
+      }
+    })();
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  if (error) {
+    throw error;
+  }
+
+  return null;
+}
+
 export default function HomePage() {
   const reducedMotion = useReducedMotion();
 
@@ -72,6 +119,7 @@ export default function HomePage() {
 
   return (
     <>
+      <HealthGuard />
       {/* ===== Hero ===== */}
       <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
         <ParticlesBackground />

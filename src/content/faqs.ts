@@ -7,7 +7,7 @@ export const faqs: FAQ[] = [
     {
         question: "What's your typical turnaround time?",
         answer:
-            "For bug fixes and debugging, I usually deliver within 24–48 hours. Feature development takes 3–7 days depending on complexity. I always provide a time estimate before starting.",
+            "For bug fixes and debugging, I usually deliver within 30–90 minutes. Feature development takes 1–3 days depending on complexity. I always provide a time estimate before starting.",
     },
     {
         question: "How do you handle communication?",
@@ -37,7 +37,7 @@ export const faqs: FAQ[] = [
     {
         question: "How do I get started?",
         answer:
-            "The easiest way is to message me on Fiverr with a description of your project or issue. I'll review it, ask any clarifying questions, and provide a quote within a few hours.",
+            "The easiest way is to message me on Fiverr with a description of your project or issue. I'll review it, ask any clarifying questions, and provide a quote within minutes.",
     },
     {
         question: "Do you sign NDAs?",

@@ -23,7 +23,7 @@ export const services: Service[] = [
             "Cross-browser compatibility fixes",
         ],
         tools: ["Chrome DevTools", "Postman", "Sentry", "VS Code Debugger"],
-        turnaround: "24–48 hours",
+        turnaround: "30–90 minutes",
     },
     {
         id: "deployment",
@@ -39,7 +39,7 @@ export const services: Service[] = [
             "Build error resolution",
         ],
         tools: ["Vercel", "Render", "AWS", "Docker", "Nginx", "cPanel"],
-        turnaround: "24–72 hours",
+        turnaround: "60 min – 4 hours",
     },
     {
         id: "full-stack",

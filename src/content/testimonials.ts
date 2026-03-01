@@ -9,7 +9,7 @@ export const testimonials: Testimonial[] = [
     {
         name: "Sarah M.",
         role: "Startup Founder",
-        text: "James fixed a critical production bug in under 3 hours that my previous developer couldn't solve in a week. Clear communication, fast turnaround, and the fix was clean. Will hire again.",
+        text: "James fixed a critical production bug in under 45 minutes that my previous developer couldn't solve in a week. Clear communication, fast turnaround, and the fix was clean. Will hire again.",
         rating: 5,
     },
     {

@@ -3,25 +3,7 @@
 import { FormEvent, useEffect, useState } from "react";
 import Script from "next/script";
 
-declare global {
-  interface Window {
-    turnstile?: {
-      render: (
-        container: HTMLElement,
-        options: {
-          sitekey: string;
-          callback?: (token: string) => void;
-          "expired-callback"?: () => void;
-          "error-callback"?: () => void;
-          theme?: "light" | "dark" | "auto";
-          size?: "normal" | "flexible";
-          appearance?: "always" | "interaction-only" | "execute";
-        }
-      ) => string;
-      reset?: (widgetId?: string) => void;
-    };
-  }
-}
+
 
 type ApiResponse = {
   ok: boolean;

@@ -22,8 +22,11 @@ declare global {
           "error-callback"?: () => void;
           theme?: "light" | "dark" | "auto";
           size?: "normal" | "flexible";
+          appearance?: "always" | "interaction-only" | "execute";
         }
       ) => string;
+      remove?: (widgetId: string) => void;
+      reset?: (widgetId?: string) => void;
     };
   }
 }
@@ -38,47 +41,62 @@ export default function ContactPage() {
   const [checkingSession, setCheckingSession] = useState(true);
   const [turnstileToken, setTurnstileToken] = useState("");
   const [turnstileReady, setTurnstileReady] = useState(false);
+  const [widgetKey, setWidgetKey] = useState(0);
 
   useEffect(() => {
     async function check() {
       try {
-        const res = await fetch("/api/chat/session");
+        const res = await fetch("/api/chat/session", { cache: "no-store" });
         const data = await res.json();
+
         if (data?.userId && data?.conversationId) {
           setChatSession({
             userId: data.userId,
             userName: data.name,
             conversationId: data.conversationId,
           });
+        } else {
+          setChatSession(null);
         }
-      } catch {}
-      setCheckingSession(false);
+      } catch {
+        setChatSession(null);
+      } finally {
+        setCheckingSession(false);
+      }
     }
+
     check();
   }, []);
 
   useEffect(() => {
     if (!turnstileReady || !window.turnstile) return;
-    if (chatSession) return;
+    if (checkingSession || chatSession) return;
 
     const container = document.getElementById("turnstile-container");
-    if (!container || container.childNodes.length > 0) return;
+    if (!container) return;
+
+    // Always start fresh on every render cycle
+    setTurnstileToken("");
+    container.innerHTML = "";
 
     window.turnstile.render(container, {
       sitekey: process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!,
       theme: "auto",
       size: "flexible",
+      appearance: "always",
       callback: (token: string) => {
         setTurnstileToken(token);
       },
       "expired-callback": () => {
         setTurnstileToken("");
+        setWidgetKey((prev) => prev + 1);
       },
       "error-callback": () => {
         setTurnstileToken("");
+        setWidgetKey((prev) => prev + 1);
       },
     });
-  }, [turnstileReady, chatSession]);
+  }, [turnstileReady, checkingSession, chatSession, widgetKey]);
 
   return (
     <div className="py-20 sm:py-24">
@@ -120,7 +138,22 @@ export default function ContactPage() {
                   Complete the verification below to start a conversation.
                 </p>
 
-                <div id="turnstile-container" className="min-h-[70px]" />
+                <div
+                  key={widgetKey}
+                  id="turnstile-container"
+                  className="min-h-[70px]"
+                />
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    setTurnstileToken("");
+                    setWidgetKey((prev) => prev + 1);
+                  }}
+                  className="mt-4 text-sm text-accent hover:text-accent-hover transition-colors self-start"
+                >
+                  Reload verification
+                </button>
               </div>
             )}
           </SectionReveal>

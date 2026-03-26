@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { ThemeProvider } from "@/components/shared/ThemeProvider";
-import { Navbar } from "@/components/layout/Navbar";
-import { Footer } from "@/components/layout/Footer";
+import { LayoutShell } from "@/components/layout/LayoutShell";
 import { ToastContainer } from "@/components/shared/Toast";
-import { ClientCursor } from "@/components/shared/ClientCursor";
 import { siteConfig } from "@/content/site";
 import { SITE_URL } from "@/lib/constants";
 import "./globals.css";
@@ -99,16 +97,10 @@ export default function RootLayout({
       </head>
       <body className="min-h-screen bg-background text-foreground antialiased noise-overlay">
         <ThemeProvider>
-          <a href="#main-content" className="skip-to-main">
-            Skip to main content
-          </a>
-          <Navbar />
-          <main id="main-content" className="pt-16">
+          <LayoutShell>
             {children}
-          </main>
-          <Footer />
+          </LayoutShell>
           <ToastContainer />
-          <ClientCursor />
         </ThemeProvider>
       </body>
     </html>

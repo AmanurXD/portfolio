@@ -12,10 +12,13 @@ import {
   Star,
   Clock,
   Server,
+  ChevronDown,
+  HelpCircle,
 } from "lucide-react";
 import { siteConfig } from "@/content/site";
 import { services } from "@/content/services";
 import { testimonials } from "@/content/testimonials";
+import { faqs } from "@/content/faqs";
 import { FIVERR_URL } from "@/lib/constants";
 import { ParticlesBackground } from "@/components/home/ParticlesBackground";
 import { SectionReveal } from "@/components/shared/SectionReveal";
@@ -105,6 +108,31 @@ function HealthGuard() {
   }
 
   return null;
+}
+
+function FaqItem({ question, answer }: { question: string; answer: string }) {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <div className="rounded-2xl border border-border bg-card overflow-hidden">
+      <button
+        onClick={() => setOpen(!open)}
+        className="w-full flex items-center justify-between px-6 py-4 text-left"
+      >
+        <span className="text-sm font-semibold text-foreground pr-4">{question}</span>
+        <ChevronDown
+          size={16}
+          className={`text-foreground-muted shrink-0 transition-transform duration-200 ${open ? "rotate-180" : ""
+            }`}
+        />
+      </button>
+      {open && (
+        <div className="px-6 pb-4 -mt-1">
+          <p className="text-sm text-foreground-muted leading-relaxed">{answer}</p>
+        </div>
+      )}
+    </div>
+  );
 }
 
 export default function HomePage() {
@@ -306,6 +334,27 @@ export default function HomePage() {
                     <p className="text-xs text-foreground-muted">{t.role}</p>
                   </div>
                 </div>
+              </SectionReveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ===== FAQs ===== */}
+      <section className="py-20 sm:py-24">
+        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+          <SectionReveal>
+            <SectionHeading
+              label="FAQs"
+              title="Frequently Asked Questions"
+              description="Quick answers to common questions about working with me."
+            />
+          </SectionReveal>
+
+          <div className="space-y-3">
+            {faqs.map((faq, i) => (
+              <SectionReveal key={i} delay={i * 0.06}>
+                <FaqItem question={faq.question} answer={faq.answer} />
               </SectionReveal>
             ))}
           </div>

@@ -1,0 +1,107 @@
+{
+    "hero": {
+        "greeting": "Hey, I'm James 👋",
+        "paragraphs": [
+            "I'm a full-stack web developer who loves solving hard problems. Whether it's a production bug that's costing you revenue, a deployment that won't cooperate, or a feature that needs to ship yesterday — I'm the person you call.",
+            "I've worked with startups, agencies, and solo founders across industries. My approach is simple: understand the problem deeply, communicate clearly, write clean code, and ship fast. No fluff, no overcomplicated solutions.",
+            "When I'm not coding, I'm writing about debugging techniques and deployment tips on my blog. I believe every developer should be able to debug efficiently — it's the skill that separates good from great."
+        ]
+    },
+    "process": [
+        {
+            "icon": "Search",
+            "title": "Discovery",
+            "description": "I start by understanding your problem, codebase, and goals. Clear scope means fewer surprises."
+        },
+        {
+            "icon": "FileText",
+            "title": "Plan",
+            "description": "I outline the approach, estimate time, and communicate what I'll do before writing any code."
+        },
+        {
+            "icon": "Code2",
+            "title": "Build / Fix",
+            "description": "I write clean, well-structured code. For debugging, I use systematic methods to isolate and fix issues."
+        },
+        {
+            "icon": "TestTube2",
+            "title": "Test",
+            "description": "Every change is tested — manually and/or with automated tests. I verify edge cases."
+        },
+        {
+            "icon": "Send",
+            "title": "Deliver",
+            "description": "I deliver with clear documentation of what was done, why, and how to maintain it going forward."
+        }
+    ],
+    "values": [
+        {
+            "icon": "Shield",
+            "title": "Reliability",
+            "description": "I show up, communicate clearly, and deliver on time. Every time."
+        },
+        {
+            "icon": "Sparkles",
+            "title": "Clarity",
+            "description": "No jargon, no mysteries. I explain what I did and why, so you're never in the dark."
+        },
+        {
+            "icon": "Heart",
+            "title": "Maintainability",
+            "description": "I write code that your future self (or next developer) will thank you for."
+        }
+    ],
+    "tools": [
+        {
+            "category": "Frontend",
+            "items": [
+                "React",
+                "Next.js",
+                "TypeScript",
+                "Tailwind CSS",
+                "Framer Motion"
+            ]
+        },
+        {
+            "category": "Backend",
+            "items": [
+                "Node.js",
+                "Express",
+                "PHP",
+                "Python",
+                "REST APIs",
+                "GraphQL"
+            ]
+        },
+        {
+            "category": "Database",
+            "items": [
+                "PostgreSQL",
+                "MongoDB",
+                "MySQL",
+                "Redis",
+                "Prisma"
+            ]
+        },
+        {
+            "category": "DevOps",
+            "items": [
+                "Docker",
+                "GitHub Actions",
+                "Vercel",
+                "AWS",
+                "Nginx"
+            ]
+        },
+        {
+            "category": "Tools",
+            "items": [
+                "Git",
+                "VS Code",
+                "Postman",
+                "Figma",
+                "Chrome DevTools"
+            ]
+        }
+    ]
+}

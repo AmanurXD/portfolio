@@ -1,5 +1,7 @@
-export const SITE_URL = "https://jamesbenett.zone.id";
-export const FIVERR_URL = "https://www.fiverr.com/debugwithjames";
-export const GITHUB_URL = "";
-export const LINKEDIN_URL = "";
-export const EMAIL = "mr.jamesbenett@gmail.com";
+import siteData from "../../data/site.json";
+
+export const SITE_URL = siteData.url;
+export const FIVERR_URL = siteData.fiverrUrl;
+export const GITHUB_URL = siteData.githubUrl;
+export const LINKEDIN_URL = siteData.linkedinUrl;
+export const EMAIL = siteData.email;
